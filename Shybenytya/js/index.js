@@ -1,16 +1,33 @@
-let words = [["Apple", "fruit, mostly green, sweet and sour taste"], ["lemon", "fruit, yellow color, sour taste"], ["mango", "fruit, mostly orange, sweet taste"], ["watermelon", "berry, green outside and red inside, sweet and juicy"]];
 
+let wordsArr = ["bread", "gamepad", "fish", "dog", "powerbank", "smartphone", "book", "elephant", "boat", "window", "javascript"];
+let word = wordsArr[Math.floor(Math.random() * wordsArr.length)]; // random word chosen from array of words.
+// console.log(word)
 
+let answerArray = []; // Цей масив заповнюється символом нижнього підкреслення рівно на стільки, скільки в загаданого слова букв.
+for (let i = 0; i < word.length; i++) {
+    answerArray[i] = "_";
+}
 
-function startGame() {
-    let randomWord = Math.floor(Math.random() * words.length);
-    alert(words[randomWord][1]);
-    let askAnswer = prompt("Guess the word from the hint");
-    if (askAnswer === words[randomWord][0] ) {
-        alert(`Right, its ${words[randomWord][0]}`);
+let remainingLetters = word.length; // кількість букв в загаданому слові.
+
+while (remainingLetters > 0) {
+    alert(answerArray.join(" "));
+
+    let guess = prompt("Загадайде літеру, або натисніть cancel щоб зупинит гру.");
+
+    if (guess === null) {
+        break;
+    } else if (guess.length !== 1) {
+        alert("Будь-ласка введіть не більше 1 літери.")
     } else {
-        alert("Wrong word!");
+        for (let j = 0; j < word.length; j++) {
+            if (word[j] === guess) {
+                answerArray[j] = guess;
+                remainingLetters--;
+            }  
+        }
     }
 }
 
-startGame(words);
+alert(answerArray.join(" "));
+alert("Хороша робота! Відповідь була " + word);
